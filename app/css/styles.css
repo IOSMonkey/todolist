@@ -1,0 +1,36 @@
+/* Put your css in here */
+
+.topRow{
+    margin-bottom : 30px;
+}
+
+
+.on-drag-enter{
+    background-color : #aaaaaa;
+}
+
+/*.on-drag-hover:before {
+    content: 'Drop him gently';
+    display: block;
+    color: white;
+    font-size: x-large;
+    font-weight: 800;
+}*/
+body {
+    padding: 0 30px;
+}
+.margintop {
+    margin-top: 20px;
+}
+a {
+    color: #5cb85c;
+    text-decoration: none;
+}
+a:hover {
+    color: #5cb85c;
+    text-decoration: none;
+}
+.remove {
+    line-height: 37px;
+    margin-left: -20px;
+}
