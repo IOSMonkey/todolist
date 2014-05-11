@@ -13,10 +13,10 @@
 </div>
 <div class="row">
     <div class="col-xs-9">
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" required ng-model="goalContent"/>
     </div>
     <div class="col-xs-3">
-        <input class="form-control" type="text"/>
+        <input class="form-control" type="text" required ng-model="goalDue"/>
     </div>
 </div>
 <div class="row margintop">
@@ -34,18 +34,18 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <input class="form-control" type="text"/>
+                        <input class="form-control" type="text" required ng-model="taskContent"/>
                     </div>
                     <div class="col-xs-3">
-                        <input class="form-control" type="text"/>
+                        <input class="form-control" type="text" required ng-model="taskTime"/>
                     </div>
                     <div class="col-xs-1">
-                        <a class="remove" href="#">remove</a>
+                        <a class="btn remove" ng-click="removeTask()">remove</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <a href="#">Add another task</a>
+                        <a ng-click="addTask()" class="btn">Add another task</a>
                     </div>
                 </div>
             </div>
@@ -54,8 +54,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <button type="button" class="btn btn-success">Create goal</button>
-        <br>
-        <a href="/">Back</a>
+        <a class="btn btn-success" ng-click="addGoal()">Create goal</a>
+        <a href="#/" class="btn btn-success">Back</a>
     </div>
 </div>
