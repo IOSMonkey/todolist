@@ -16,7 +16,15 @@
         <input class="form-control" type="text" required ng-model="goalContent"/>
     </div>
     <div class="col-xs-3">
-        <input class="form-control" type="text" required ng-model="goalDue"/>
+        <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened"
+                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                   date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
     </div>
 </div>
 <div class="row margintop">
@@ -24,23 +32,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">Add tasks for this goal</div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-xs-8">
-                        Step
+                <div ng-repeat="list in taskList track by $index">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            Step
+                        </div>
+                        <div class="col-xs-3">
+                            Time needed (min)
+                        </div>
                     </div>
-                    <div class="col-xs-3">
-                        Time needed (min)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <input class="form-control" type="text" required ng-model="taskContent"/>
-                    </div>
-                    <div class="col-xs-3">
-                        <input class="form-control" type="text" required ng-model="taskTime"/>
-                    </div>
-                    <div class="col-xs-1">
-                        <a class="btn remove" ng-click="removeTask()">remove</a>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.text"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.time"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <a class="btn remove" ng-click="removeTask()">remove</a>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

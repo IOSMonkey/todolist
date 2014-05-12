@@ -1,14 +1,17 @@
 'use strict';
-var app = angular.module('todolist', ['ngDragDrop','ngRoute']);
-app.factory('DataServices',function(){
+var app = angular.module('todolist', ['ngDragDrop', 'ngRoute','ui.bootstrap']);
+app.factory('DataServices', function () {
     var task = [];
     var goal = [];
     return {
-        task:task,
-        goal:goal
+        task: task,
+        goal: goal,
     };
 });
-app.controller('MainCtrl', function ($scope,$rootScope,DataServices) {
+//var DatepickerCtrl = function ($scope) {
+//
+//};
+app.controller('MainCtrl', function ($scope, $rootScope, DataServices) {
     $scope.mon = ['No Task'];
     $scope.tue = ['No Task'];
     $scope.wen = DataServices.task;
@@ -26,30 +29,68 @@ app.controller('MainCtrl', function ($scope,$rootScope,DataServices) {
     };
 
 });
-app.controller('TaskCtrl',function($scope,DataServices){
+app.controller('TaskCtrl', function ($scope, DataServices) {
     $scope.taskContent = "";
     $scope.taskTime = "";
     $scope.goalContent = "";
     $scope.goalDue = "";
-    $scope.removeTask = function(){
-        window.alert($scope.task);
+    $scope.taskList = [{text:'',time:''}];
+
+    $scope.today = function() {
+        $scope.dt = new Date();
     };
-    $scope.addTask = function(){
-        if($scope.goalContent.length == 0 || $scope.taskTime.length == 0) {
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = null;
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+
+    $scope.removeTask = function ($index) {
+        if($scope.taskList.length == 1){
+            return;
+        }
+        $scope.taskList.splice($index, 1);
+    };
+    $scope.addTask = function () {
+        $scope.taskList.push({text: '', time: ''});
+        //get the server api
+    };
+    $scope.addGoal = function () {
+        window.alert('When is the due????'+$scope.dt);
+        if ($scope.goalContent.length == 0 || $scope.goalDue.length == 0) {
             window.alert('Error');
             return;
         }
-        DataServices.task.push($scope.taskContent);
-    };
-    $scope.addGoal = function(){
-        if($scope.goalContent.length == 0 || $scope.goalDue.length == 0) {
-            window.alert('Error');
-            return;
-        }
-        DataServices.task.push($scope.goalContent);
+        //get the server api
     };
 });
-app.config(['$routeProvider',function ($routeProvider) {
+app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/edit', {
             templateUrl: 'views/newgoal.html',
