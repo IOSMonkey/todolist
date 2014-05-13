@@ -5,12 +5,9 @@ app.factory('DataServices', function () {
     var goal = [];
     return {
         task: task,
-        goal: goal,
+        goal: goal
     };
 });
-//var DatepickerCtrl = function ($scope) {
-//
-//};
 app.controller('MainCtrl', function ($scope, $rootScope, DataServices) {
     $scope.mon = ['No Task'];
     $scope.tue = ['No Task'];
