@@ -33,7 +33,6 @@ app.controller('TaskCtrl', function ($scope, DataServices) {
     $scope.taskContent = "";
     $scope.taskTime = "";
     $scope.goalContent = "";
-    $scope.goalDue = "";
     $scope.taskList = [{text:'',time:''}];
 
     $scope.today = function() {
@@ -83,10 +82,10 @@ app.controller('TaskCtrl', function ($scope, DataServices) {
     };
     $scope.addGoal = function () {
         window.alert('When is the due????'+$scope.dt);
-        if ($scope.goalContent.length == 0 || $scope.goalDue.length == 0) {
-            window.alert('Error');
-            return;
-        }
+//        if ($scope.goalContent.length == 0 || $scope.dt.length == 0) {
+//            window.alert('Error');
+//            return;
+//        }
         //get the server api
     };
 });
