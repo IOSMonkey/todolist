@@ -35,18 +35,18 @@
                 <div ng-repeat="list in taskList track by $index">
                     <div class="row">
                         <div class="col-xs-8">
-                            Step
+                            Step {{$index + 1}}
                         </div>
                         <div class="col-xs-3">
                             Time needed (min)
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-8">
-                            <input class="form-control" type="text" ng-required="true" ng-model="list.text"/>
+                         <div class="col-xs-8">
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.name"/>
                         </div>
                         <div class="col-xs-3">
-                            <input class="form-control" type="text" ng-required="true" ng-model="list.time"/>
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.due"/>
                         </div>
                         <div class="col-xs-1">
                             <a class="btn remove" ng-click="removeTask()">remove</a>
