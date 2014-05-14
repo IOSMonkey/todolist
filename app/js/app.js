@@ -8,7 +8,38 @@ app.factory('DataServices', function () {
         goal: goal
     };
 });
-app.controller('MainCtrl', ['$scope', 'dataFactory', function ($scope, $rootScope, DataServices, dataFactory) {
+app.factory('dataFactory', ['$http', function ($http) {
+
+    var taskUrlBase = '/api/v1/task';
+    var goalUrlBase = '/api/v1/goal'
+    var dataFactory = {};
+    //get the tasks from the server
+    dataFactory.getTasks = function () {
+        return $http.get(taskUrlBase);
+    };
+    //create a task to the server
+    dataFactory.createTask = function (task) {
+        return $http.post(taskUrlBase, task);
+    };
+    //create a goal to the server(goal info and tasks info)
+    dataFactory.createGoal = function (goal) {
+        return $http.post(goalUrlBase, goal);
+    };
+    //update the task
+    dataFactory.updateTask = function (task) {
+        return $http.put(taskUrlBase + '/' + task.ID, task)
+    };
+    //delete the task by id
+    dataFactory.deleteTask = function (id) {
+        return $http.delete(taskUrlBase + '/' + id);
+    };
+    //delete the goal by id
+    dataFactory.deleteGoal = function (id) {
+        return $http.delete(goalUrlBase + '/' + id);
+    };
+    return dataFactory;
+}]);
+app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFactory) {
     $scope.mon = ['No Task'];
     $scope.tue = ['No Task'];
     $scope.wen = DataServices.task;
@@ -37,8 +68,8 @@ app.controller('MainCtrl', ['$scope', 'dataFactory', function ($scope, $rootScop
                 window.alert(error);
             });
     };
-}]);
-app.controller('TaskCtrl', ['$scope', 'dataFactory', function ($scope, DataServices, dataFactory) {
+});
+app.controller('TaskCtrl', function ($scope, DataServices, dataFactory) {
     $scope.taskContent = "";
     $scope.taskTime = "";
     $scope.goalContent = "";
@@ -94,7 +125,8 @@ app.controller('TaskCtrl', ['$scope', 'dataFactory', function ($scope, DataServi
     $scope.addGoal = function () {
         window.alert('When is the due????' + $scope.dt);
         //get the server api
-        var goal = {name:$scope.goalContent,due:$scope.due,tasks_attributes:$scope.taskList};
+        var goal = {name: $scope.goalContent, due: $scope.due, tasks_attributes: $scope.taskList};
+        window.alert(dataFactory);
         dataFactory.createGoal(goal)
             .success(function (data, status, header, config) {
 
@@ -103,7 +135,7 @@ app.controller('TaskCtrl', ['$scope', 'dataFactory', function ($scope, DataServi
 
             });
     };
-}]);
+});
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/edit', {
