@@ -9,9 +9,9 @@ app.factory('DataServices', function () {
     };
 });
 app.factory('dataFactory', ['$http', function ($http) {
-
-    var taskUrlBase = '/api/v1/task';
-    var goalUrlBase = '/api/v1/goal'
+    var apiUrlBase = 'http://todolist-api-1.herokuapp.com';
+    var taskUrlBase = apiUrlBase + '/api/v1/tasks';
+    var goalUrlBase = apiUrlBase + '/api/v1/goals'
     var dataFactory = {};
     //get the tasks from the server
     dataFactory.getTasks = function () {
@@ -55,12 +55,14 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFacto
     $scope.onDrop = function ($event, $data, array) {
         array.push($data);
     };
+    getTasks();
     //get task list
-    $scope.getTasks = function () {
+    function getTasks() {
         dataFactory.getTasks()
             .success(function (data, status, header, config) {
                 // this callback will be called asynchronously
                 // when the response is available
+                window.alert(data);
             })
             .error(function (error) {
                 // called asynchronously if an error occurs
