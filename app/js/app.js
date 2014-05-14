@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('todolist', ['ngDragDrop', 'ngRoute','ui.bootstrap']);
+var app = angular.module('todolist', ['ngDragDrop', 'ngRoute', 'ui.bootstrap']);
 app.factory('DataServices', function () {
     var task = [];
     var goal = [];
@@ -8,7 +8,7 @@ app.factory('DataServices', function () {
         goal: goal
     };
 });
-app.controller('MainCtrl', function ($scope, $rootScope, DataServices) {
+app.controller('MainCtrl', ['$scope', 'dataFactory', function ($scope, $rootScope, DataServices, dataFactory) {
     $scope.mon = ['No Task'];
     $scope.tue = ['No Task'];
     $scope.wen = DataServices.task;
@@ -24,15 +24,29 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices) {
     $scope.onDrop = function ($event, $data, array) {
         array.push($data);
     };
-
-});
-app.controller('TaskCtrl', function ($scope, DataServices) {
+    //get task list
+    $scope.getTasks = function () {
+        dataFactory.getTasks()
+            .success(function (data, status, header, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+            })
+            .error(function (error) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                window.alert(error);
+            });
+    };
+}]);
+app.controller('TaskCtrl', ['$scope', 'dataFactory', function ($scope, DataServices, dataFactory) {
     $scope.taskContent = "";
     $scope.taskTime = "";
     $scope.goalContent = "";
-    $scope.taskList = [{text:'',time:''}];
+    $scope.taskList = [
+        {text: '', time: ''}
+    ];
 
-    $scope.today = function() {
+    $scope.today = function () {
         $scope.dt = new Date();
     };
     $scope.today();
@@ -42,16 +56,16 @@ app.controller('TaskCtrl', function ($scope, DataServices) {
     };
 
     // Disable weekend selection
-    $scope.disabled = function(date, mode) {
+    $scope.disabled = function (date, mode) {
         return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
 
-    $scope.toggleMin = function() {
+    $scope.toggleMin = function () {
         $scope.minDate = $scope.minDate ? null : new Date();
     };
     $scope.toggleMin();
 
-    $scope.open = function($event) {
+    $scope.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
 
@@ -68,24 +82,28 @@ app.controller('TaskCtrl', function ($scope, DataServices) {
     $scope.format = $scope.formats[1];
 
     $scope.removeTask = function ($index) {
-        if($scope.taskList.length == 1){
+        if ($scope.taskList.length == 1) {
             return;
         }
         $scope.taskList.splice($index, 1);
     };
     $scope.addTask = function () {
-        $scope.taskList.push({text: '', time: ''});
+        $scope.taskList.push({name: '', due: ''});
         //get the server api
     };
     $scope.addGoal = function () {
-        window.alert('When is the due????'+$scope.dt);
-//        if ($scope.goalContent.length == 0 || $scope.dt.length == 0) {
-//            window.alert('Error');
-//            return;
-//        }
+        window.alert('When is the due????' + $scope.dt);
         //get the server api
+        var goal = {name:$scope.goalContent,due:$scope.due,tasks_attributes:$scope.taskList};
+        dataFactory.createGoal(goal)
+            .success(function (data, status, header, config) {
+
+            })
+            .error(function (data, status, header, config) {
+
+            });
     };
-});
+}]);
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/edit', {
