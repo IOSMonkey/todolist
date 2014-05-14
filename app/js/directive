@@ -1,0 +1,36 @@
+/**
+ * Created by AlexLiu on 2014/5/14.
+ */
+'use strict';
+angular.module('todolist')
+    .factory('dataFactory', ['$http', function ($http) {
+
+        var taskUrlBase = '/api/v1/task';
+        var goalUrlBase = '/api/v1/goal'
+        var dataFactory = {};
+        //get the tasks from the server
+        dataFactory.getTasks = function () {
+            return $http.get(taskUrlBase);
+        };
+        //create a task to the server
+        dataFactory.createTask = function (task) {
+            return $http.post(taskUrlBase, task);
+        };
+        //create a goal to the server(goal info and tasks info)
+        dataFactory.createGoal = function (goal) {
+            return $http.post(goalUrlBase, goal);
+        };
+        //update the task
+        dataFactory.updateTask = function (task) {
+            return $http.put(taskUrlBase + '/' + task.ID, task)
+        };
+        //delete the task by id
+        dataFactory.deleteTask = function (id) {
+            return $http.delete(taskUrlBase + '/' + id);
+        };
+        //delete the goal by id
+        dataFactory.deleteGoal = function (id) {
+            return $http.delete(goalUrlBase + '/' + id);
+        };
+        return dataFactory;
+    }]);
