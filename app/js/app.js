@@ -40,13 +40,13 @@ app.factory('dataFactory', ['$http', function ($http) {
     return dataFactory;
 }]);
 app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFactory) {
-    $scope.mon = ['No Task'];
-    $scope.tue = ['No Task'];
-    $scope.wen = DataServices.task;
-    $scope.thu = DataServices.task;
-    $scope.fri = ['No Task'];
-    $scope.sat = ['No Task'];
-    $scope.sun = ['No Task'];
+    $scope.mon = [];
+    $scope.tue = [];
+    $scope.wen = [];
+    $scope.thu = [];
+    $scope.fri = [];
+    $scope.sat = [];
+    $scope.sun = [];
 
     $scope.dropSuccessHandler = function ($event, index, array) {
         array.splice(index, 1);
@@ -62,7 +62,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFacto
             .success(function (data, status, header, config) {
                 // this callback will be called asynchronously
                 // when the response is available
-                window.alert(data);
+                $scope.thu = data;
             })
             .error(function (error) {
                 // called asynchronously if an error occurs
