@@ -10,75 +10,75 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-1">
-            Monday
-            <ul ui-on-Drop="onDrop($event,$data,mon)">
-                <li ui-draggable="true" drag="monday"
-                    on-drop-success="dropSuccessHandler($event,$index,mon)"
-                    ng-repeat="monday in mon track by $index">
-                    {{monday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Tuesday
-            <ul ui-on-Drop="onDrop($event,$data,tue)">
-                <li ui-draggable="true" drag="tuesday"
-                    on-drop-success="dropSuccessHandler($event,$index,tue)"
-                    ng-repeat="tuesday in tue track by $index">
-                    {{tuesday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Wensday
-            <ul ui-on-Drop="onDrop($event,$data,wen)">
-                <li ui-draggable="true" drag="wensday"
-                    on-drop-success="dropSuccessHandler($event,$index,wen)"
-                    ng-repeat="wensday in wen track by $index">
-                    {{wensday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Thursday
-            <ul ui-on-Drop="onDrop($event,$data,thu)">
-                <li ui-draggable="true" drag="thursday"
-                    on-drop-success="dropSuccessHandler($event,$index,thu)"
-                    ng-repeat="thursday in thu track by $index">
-                    {{thursday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Friday
-            <ul ui-on-Drop="onDrop($event,$data,fri)">
-                <li ui-draggable="true" drag="friday"
-                    on-drop-success="dropSuccessHandler($event,$index,fri)"
-                    ng-repeat="friday in fri track by $index">
-                    {{friday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Saturday
-            <ul ui-on-Drop="onDrop($event,$data,sat)">
-                <li ui-draggable="true" drag="saturday"
-                    on-drop-success="dropSuccessHandler($event,$index,sat)"
-                    ng-repeat="saturday in sat track by $index">
-                    {{saturday.name}}
-                </li>
-            </ul>
-        </div>
-        <div class="col-xs-1">
-            Sunday
-            <ul ui-on-Drop="onDrop($event,$data,sun)">
+        <div class="col-xs-2">
+            {{ currentWeeks[0] }}
+            <ol ui-on-Drop="onDrop($event,$data,sun)">
                 <li ui-draggable="true" drag="sunday"
                     on-drop-success="dropSuccessHandler($event,$index,sun)"
                     ng-repeat="sunday in sun track by $index">
                     {{sunday.name}}
                 </li>
-            </ul>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[1] }}
+            <ol ui-on-Drop="onDrop($event,$data,mon)">
+                <li ui-draggable="true" drag="monday"
+                    on-drop-success="dropSuccessHandler($event,$index,mon)"
+                    ng-repeat="monday in mon track by $index">
+                    {{monday.name}}
+                </li>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[2] }}
+            <ol ui-on-Drop="onDrop($event,$data,tue)">
+                <li ui-draggable="true" drag="tuesday"
+                    on-drop-success="dropSuccessHandler($event,$index,tue)"
+                    ng-repeat="tuesday in tue track by $index">
+                    {{tuesday.name}}
+                </li>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[3] }}
+            <ol ui-on-Drop="onDrop($event,$data,wen)">
+                <li ui-draggable="true" drag="wednesday"
+                    on-drop-success="dropSuccessHandler($event,$index,wen)"
+                    ng-repeat="wednesday in wen track by $index">
+                    {{wednesday.name}}
+                </li>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[4] }}
+            <ol ui-on-Drop="onDrop($event,$data,thu)">
+                <li ui-draggable="true" drag="thursday"
+                    on-drop-success="dropSuccessHandler($event,$index,thu)"
+                    ng-repeat="thursday in thu track by $index">
+                    {{thursday.name}}
+                </li>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[5] }}
+            <ol ui-on-Drop="onDrop($event,$data,fri)">
+                <li ui-draggable="true" drag="friday"
+                    on-drop-success="dropSuccessHandler($event,$index,fri)"
+                    ng-repeat="friday in fri track by $index">
+                    {{friday.name}}
+                </li>
+            </ol>
+        </div>
+        <div class="col-xs-2">
+            {{ currentWeeks[6] }}
+            <ol ui-on-Drop="onDrop($event,$data,sat)">
+                <li ui-draggable="true" drag="saturday"
+                    on-drop-success="dropSuccessHandler($event,$index,sat)"
+                    ng-repeat="saturday in sat track by $index">
+                    {{saturday.name}}
+                </li>
+            </ol>
         </div>
     </div>
 </div>
