@@ -48,6 +48,63 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFacto
     $scope.sat = [];
     $scope.sun = [];
 
+    $scope.currentWeeks = [];
+    calculateWeekDay();
+
+    function formatDate(day, date) {
+        //the weekday List
+        var weekday = new Array(7);
+        weekday[0] = "Sun";
+        weekday[1] = "Mon";
+        weekday[2] = "Tue";
+        weekday[3] = "Wed";
+        weekday[4] = "Thu";
+        weekday[5] = "Fri";
+        weekday[6] = "Sat";
+
+        //the month list
+        var month = new Array(12);
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+
+        //var myYear = date.getFullYear();
+        var myMonth = date.getMonth();
+        var myWeekday = date.getDate();
+        if (myWeekday < 10) {
+            myWeekday = "0" + myWeekday;
+        }
+        return (weekday[day] + ' ' + myWeekday + ' ' + month[myMonth]);
+    }
+
+    //calculate current week's day
+    function calculateWeekDay() {
+
+        var now = new Date(); //current date
+        var nowDayOfWeek = now.getDay(); //Today for the first few days this week
+        var currentDay = now.getDate(); //current day
+        var currentMonth = now.getMonth(); //current month
+        var currentYear = now.getYear(); //this year
+        currentYear += (currentYear < 2000) ? 1900 : 0;  //
+
+
+        //everyday of this week
+        for (var i = 0; i < 7; i++) {
+            var day = currentDay + (i - nowDayOfWeek);
+            var weekDate = formatDate(i, new Date(currentYear, currentMonth, day));
+            $scope.currentWeeks.push(weekDate);
+        }
+    }
+
     $scope.dropSuccessHandler = function ($event, index, array) {
         array.splice(index, 1);
     };
@@ -67,7 +124,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFacto
             .error(function (error) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                window.alert(error);
+                //window.alert(error);
             });
     };
 });
@@ -125,10 +182,8 @@ app.controller('TaskCtrl', function ($scope, DataServices, dataFactory) {
         //get the server api
     };
     $scope.addGoal = function () {
-        window.alert('When is the due????' + $scope.dt);
         //get the server api
         var goal = {name: $scope.goalContent, due: $scope.due, tasks_attributes: $scope.taskList};
-        window.alert(dataFactory);
         dataFactory.createGoal(goal)
             .success(function (data, status, header, config) {
 
