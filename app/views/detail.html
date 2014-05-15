@@ -1,84 +1,70 @@
-<div class="container" ng-controller="MainCtrl">
-    <div class="row col-lg-12">
-        <div class="col-xs-3">
-            <h1>My Week</h1>
-        </div>
-        <div class="col-xs-5">
-            <a class="btn btn-success" href="#/edit">New Task</a>
-            <a class="btn btn-success" href="#/edit">New Goal</a>
+<div class="row">
+    <div class="col-lg-12">
+        <h1>New goal</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-9">
+        What do you need to do?
+    </div>
+    <div class="col-xs-3">
+        * When's it due?
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-9">
+        <input class="form-control" type="text" required ng-model="goalContent"/>
+    </div>
+    <div class="col-xs-3">
+        <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened"
+                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                   date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
+    </div>
+</div>
+<div class="row margintop">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Add tasks for this goal</div>
+            <div class="panel-body">
+                <div ng-repeat="list in taskList track by $index">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            Step {{ $index + 1 }}
+                        </div>
+                        <div class="col-xs-3">
+                            Time needed (min)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.name"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <input class="form-control" type="text" ng-required="true" ng-model="list.due"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <a class="btn remove" ng-click="removeTask($index)">remove</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a ng-click="addTask()" class="btn">Add another task</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==0 }}">{{ currentWeeks[0] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,sun)">
-                <li ui-draggable="true" drag="sunday"
-                    on-drop-success="dropSuccessHandler($event,$index,sun)"
-                    ng-repeat="sunday in sun track by $index">
-                    {{sunday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==1 }}">{{ currentWeeks[1] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,mon)">
-                <li ui-draggable="true" drag="monday"
-                    on-drop-success="dropSuccessHandler($event,$index,mon)"
-                    ng-repeat="monday in mon track by $index">
-                    {{monday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==2 }}"> {{ currentWeeks[2] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,tue)">
-                <li ui-draggable="true" drag="tuesday"
-                    on-drop-success="dropSuccessHandler($event,$index,tue)"
-                    ng-repeat="tuesday in tue track by $index">
-                    {{tuesday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==3 }}">{{ currentWeeks[3] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,wen)">
-                <li ui-draggable="true" drag="wednesday"
-                    on-drop-success="dropSuccessHandler($event,$index,wen)"
-                    ng-repeat="wednesday in wen track by $index">
-                    {{wednesday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==4 }}">{{ currentWeeks[4] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,thu)">
-                <li ui-draggable="true" drag="thursday"
-                    on-drop-success="dropSuccessHandler($event,$index,thu)"
-                    ng-repeat="thursday in thu track by $index">
-                    {{thursday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==5 }}">{{ currentWeeks[5] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,fri)">
-                <li ui-draggable="true" drag="friday"
-                    on-drop-success="dropSuccessHandler($event,$index,fri)"
-                    ng-repeat="friday in fri track by $index">
-                    {{friday.name}}
-                </li>
-            </ol>
-        </div>
-        <div class="col-xs-1">
-            <p class="on-selcted-day-{{ nowDayOfWeek==6 }}">{{ currentWeeks[6] }}</p>
-            <ol ui-on-Drop="onDrop($event,$data,sat)">
-                <li ui-draggable="true" drag="saturday"
-                    on-drop-success="dropSuccessHandler($event,$index,sat)"
-                    ng-repeat="saturday in sat track by $index">
-                    {{saturday.name}}
-                </li>
-            </ol>
-        </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <a class="btn btn-success" ng-click="addGoal()">Create goal</a>
+        <a href="#/" class="btn btn-success">Back</a>
     </div>
 </div>
