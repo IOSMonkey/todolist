@@ -95,7 +95,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, DataServices, dataFacto
         var currentMonth = now.getMonth(); //current month
         var currentYear = now.getYear(); //this year
         currentYear += (currentYear < 2000) ? 1900 : 0;  //
-
+        $scope.nowDayOfWeek = nowDayOfWeek;
 
         //everyday of this week
         for (var i = 0; i < 7; i++) {
